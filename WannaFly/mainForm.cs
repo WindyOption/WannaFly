@@ -481,8 +481,19 @@ namespace WannaFly
 
         private void menuHistory_Click(object sender, EventArgs e)
         {
+           
+        }
+
+        private void AddressBar_Click(object sender, EventArgs e)
+        {
             historyForm history = new historyForm();
             history.ShowDialog();
+        }
+
+        private void 浏览记录ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            viewHistory form = new viewHistory();
+            form.ShowDialog();
         }
     }
 }

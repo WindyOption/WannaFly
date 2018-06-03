@@ -49,6 +49,8 @@
             this.menuSave = new System.Windows.Forms.ToolStripMenuItem();
             this.favoriteFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHistory = new System.Windows.Forms.ToolStripMenuItem();
+            this.AddressBar = new System.Windows.Forms.ToolStripMenuItem();
+            this.浏览记录ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.网页源码ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.网页源码ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.GB2312 = new System.Windows.Forms.ToolStripMenuItem();
@@ -250,10 +252,27 @@
             // 
             // menuHistory
             // 
+            this.menuHistory.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.AddressBar,
+            this.浏览记录ToolStripMenuItem});
             this.menuHistory.Name = "menuHistory";
             this.menuHistory.Size = new System.Drawing.Size(181, 26);
             this.menuHistory.Text = "历史";
             this.menuHistory.Click += new System.EventHandler(this.menuHistory_Click);
+            // 
+            // AddressBar
+            // 
+            this.AddressBar.Name = "AddressBar";
+            this.AddressBar.Size = new System.Drawing.Size(181, 26);
+            this.AddressBar.Text = "地址栏";
+            this.AddressBar.Click += new System.EventHandler(this.AddressBar_Click);
+            // 
+            // 浏览记录ToolStripMenuItem
+            // 
+            this.浏览记录ToolStripMenuItem.Name = "浏览记录ToolStripMenuItem";
+            this.浏览记录ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.浏览记录ToolStripMenuItem.Text = "浏览记录";
+            this.浏览记录ToolStripMenuItem.Click += new System.EventHandler(this.浏览记录ToolStripMenuItem_Click);
             // 
             // 网页源码ToolStripMenuItem
             // 
@@ -423,6 +442,8 @@
         private System.Windows.Forms.ToolStripMenuItem menuSave;
         private System.Windows.Forms.ToolStripMenuItem favoriteFile;
         private System.Windows.Forms.ToolStripMenuItem menuHistory;
+        private System.Windows.Forms.ToolStripMenuItem AddressBar;
+        private System.Windows.Forms.ToolStripMenuItem 浏览记录ToolStripMenuItem;
     }
 }
 

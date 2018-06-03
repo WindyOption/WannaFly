@@ -286,4 +286,5 @@ C:\Users\xvon\pc_git\WannaFly\WannaFly\obj\x86\Debug\WannaFly.csproj.CoreCompile
 C:\Users\xvon\pc_git\WannaFly\WannaFly\obj\x86\Debug\WannaFly.exe
 C:\Users\xvon\pc_git\WannaFly\WannaFly\obj\x86\Debug\WannaFly.pdb
 C:\Users\xvon\pc_git\WannaFly\WannaFly\obj\x86\Debug\WannaFly.csprojResolveAssemblyReference.cache
-C:\Users\xvon\pc_git\WannaFly\WannaFly\obj\x86\Debug\WannaFly.History.resources
+C:\Users\xvon\pc_git\WannaFly\WannaFly\obj\x86\Debug\WannaFly.historyForm.resources
+C:\Users\xvon\pc_git\WannaFly\WannaFly\obj\x86\Debug\WannaFly.viewHistory.resources

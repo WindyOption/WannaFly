@@ -63,5 +63,9 @@ namespace WannaFly
             }
         }
 
+        private void favorDisPlay_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -44,6 +44,7 @@
             this.favorDisPlay.Name = "favorDisPlay";
             this.favorDisPlay.Size = new System.Drawing.Size(828, 454);
             this.favorDisPlay.TabIndex = 0;
+            this.favorDisPlay.SelectedIndexChanged += new System.EventHandler(this.favorDisPlay_SelectedIndexChanged);
             // 
             // delFavor
             // 
