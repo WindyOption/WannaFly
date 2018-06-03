@@ -42,9 +42,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="WebKitBrowser">
-      <HintPath>bin\Debug\WebKitBrowser.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="chromeForm.cs">
@@ -52,6 +49,18 @@
     </Compile>
     <Compile Include="chromeForm.Designer.cs">
       <DependentUpon>chromeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="favoritesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="favoritesForm.Designer.cs">
+      <DependentUpon>favoritesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="historyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="historyForm.Designer.cs">
+      <DependentUpon>historyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="mainForm.cs">
       <SubType>Form</SubType>
@@ -69,6 +78,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="chromeForm.resx">
       <DependentUpon>chromeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="favoritesForm.resx">
+      <DependentUpon>favoritesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="historyForm.resx">
+      <DependentUpon>historyForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="mainForm.resx">
       <DependentUpon>mainForm.cs</DependentUpon>
@@ -149,6 +164,17 @@
     <None Include="Resources\icons8-域-961.png" />
     <None Include="Resources\icons8-搜索-96.png" />
     <None Include="Resources\icons8-前进-96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

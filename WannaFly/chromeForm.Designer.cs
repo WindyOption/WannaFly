@@ -36,8 +36,6 @@
             this.pageRevoke = new System.Windows.Forms.ToolStripButton();
             this.pageHome = new System.Windows.Forms.ToolStripButton();
             this.SelectEngine = new System.Windows.Forms.ToolStripDropDownButton();
-            this.chromium内核ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.chrome内核ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.urlAddress = new System.Windows.Forms.ToolStripComboBox();
             this.goButton = new System.Windows.Forms.ToolStripButton();
             this.NewPage2 = new System.Windows.Forms.ToolStripButton();
@@ -50,13 +48,12 @@
             this.网页源码ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.GB2312 = new System.Windows.Forms.ToolStripMenuItem();
             this.Unicode = new System.Windows.Forms.ToolStripMenuItem();
-            this.历史ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pageSave = new System.Windows.Forms.ToolStripButton();
             this.pageCollect = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.iE内核ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -79,7 +76,6 @@
             this.SearchGo,
             this.toolStripSeparator2,
             this.menuList,
-            this.pageSave,
             this.pageCollect});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -149,24 +145,11 @@
             // 
             this.SelectEngine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.SelectEngine.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.chromium内核ToolStripMenuItem,
-            this.chrome内核ToolStripMenuItem});
+            this.iE内核ToolStripMenuItem});
             this.SelectEngine.Image = global::WannaFly.Properties.Resources.icons8_ie浏览器_480;
             this.SelectEngine.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SelectEngine.Name = "SelectEngine";
             this.SelectEngine.Size = new System.Drawing.Size(34, 40);
-            // 
-            // chromium内核ToolStripMenuItem
-            // 
-            this.chromium内核ToolStripMenuItem.Name = "chromium内核ToolStripMenuItem";
-            this.chromium内核ToolStripMenuItem.Size = new System.Drawing.Size(158, 26);
-            this.chromium内核ToolStripMenuItem.Text = "IE内核";
-            // 
-            // chrome内核ToolStripMenuItem
-            // 
-            this.chrome内核ToolStripMenuItem.Name = "chrome内核ToolStripMenuItem";
-            this.chrome内核ToolStripMenuItem.Size = new System.Drawing.Size(158, 26);
-            this.chrome内核ToolStripMenuItem.Text = "Chrome内核";
             // 
             // urlAddress
             // 
@@ -242,8 +225,7 @@
             // 网页源码ToolStripMenuItem
             // 
             this.网页源码ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.网页源码ToolStripMenuItem1,
-            this.历史ToolStripMenuItem});
+            this.网页源码ToolStripMenuItem1});
             this.网页源码ToolStripMenuItem.Name = "网页源码ToolStripMenuItem";
             this.网页源码ToolStripMenuItem.Size = new System.Drawing.Size(110, 26);
             this.网页源码ToolStripMenuItem.Text = "查看";
@@ -270,27 +252,12 @@
             this.Unicode.Text = "Unicode(UTF-8)";
             this.Unicode.Click += new System.EventHandler(this.Unicode_Click);
             // 
-            // 历史ToolStripMenuItem
-            // 
-            this.历史ToolStripMenuItem.Name = "历史ToolStripMenuItem";
-            this.历史ToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
-            this.历史ToolStripMenuItem.Text = "历史";
-            // 
             // 关于ToolStripMenuItem
             // 
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
             this.关于ToolStripMenuItem.Size = new System.Drawing.Size(110, 26);
             this.关于ToolStripMenuItem.Text = "关于";
-            // 
-            // pageSave
-            // 
-            this.pageSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pageSave.Image = global::WannaFly.Properties.Resources.icons8_保存_96;
-            this.pageSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pageSave.Name = "pageSave";
-            this.pageSave.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.pageSave.Size = new System.Drawing.Size(34, 40);
-            this.pageSave.Text = "保存";
+            this.关于ToolStripMenuItem.Click += new System.EventHandler(this.关于ToolStripMenuItem_Click);
             // 
             // pageCollect
             // 
@@ -330,6 +297,12 @@
             this.toolStripStatusLabel1.Text = "Status";
             this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // iE内核ToolStripMenuItem
+            // 
+            this.iE内核ToolStripMenuItem.Name = "iE内核ToolStripMenuItem";
+            this.iE内核ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.iE内核ToolStripMenuItem.Text = "IE内核";
+            // 
             // chromeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -362,7 +335,6 @@
         private System.Windows.Forms.ToolStripButton pageRevoke;
         private System.Windows.Forms.ToolStripButton pageHome;
         private System.Windows.Forms.ToolStripDropDownButton SelectEngine;
-        private System.Windows.Forms.ToolStripMenuItem chromium内核ToolStripMenuItem;
         private System.Windows.Forms.ToolStripComboBox urlAddress;
         private System.Windows.Forms.ToolStripButton NewPage2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
@@ -374,14 +346,12 @@
         private System.Windows.Forms.ToolStripMenuItem 网页源码ToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem GB2312;
         private System.Windows.Forms.ToolStripMenuItem Unicode;
-        private System.Windows.Forms.ToolStripMenuItem 历史ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton pageSave;
         private System.Windows.Forms.ToolStripButton pageCollect;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.ToolStripMenuItem chrome内核ToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripButton goButton;
+        private System.Windows.Forms.ToolStripMenuItem iE内核ToolStripMenuItem;
     }
 }

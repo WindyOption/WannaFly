@@ -116,7 +116,6 @@ namespace WannaFly
 
 
 
-
         #region 常用方法
         void newTab()
         {
@@ -244,6 +243,10 @@ namespace WannaFly
         #endregion
 
 
+
+     
+
+
         #region 关闭子窗体时，父窗体也关闭
         private void chromeForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -251,6 +254,7 @@ namespace WannaFly
             var parent = Owner;
             parent.RemoveOwnedForm(this);
             parent.Close();
+
         }
 
         private void chromeForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -301,10 +305,6 @@ namespace WannaFly
         }
 
 
-      
-
-
-
         //源码查看：打开一个记事本窗口，而不是在一个Tab页内，暂时就这样
         private void Unicode_Click(object sender, EventArgs e)
         {
@@ -322,6 +322,16 @@ namespace WannaFly
                 GetCurrentBrowser().Load(urlAddress.Text);
             }
         }
+
+        //关于
+        private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            MessageBox.Show(Cef.ChromiumVersion, "Chrome Version", MessageBoxButtons.OK);
+        }
+
+       
+
 
     }
 }

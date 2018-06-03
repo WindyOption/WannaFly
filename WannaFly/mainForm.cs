@@ -13,7 +13,7 @@ using CefSharp;
 using CefSharp.WinForms;
 using FarsiLibrary.Win;
 using System.Web;
-
+using IWshRuntimeLibrary;
 
 
 
@@ -300,6 +300,7 @@ namespace WannaFly
             else
             {
                 getCurrentBrowser().Navigate(newURL);
+              
                 mypage.Text = getCurrentBrowser().DocumentTitle;
                 urlAddress.Text = newURL;
                 e.Cancel = true;
@@ -311,8 +312,8 @@ namespace WannaFly
         #region 菜单
         //关于：显示内核版本
         private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(getCurrentBrowser().Version.ToString(), "Kernal Version:");
+        {   
+            MessageBox.Show(getCurrentBrowser().Version.ToString(), "IE Kernal Version");
         }
 
         //查看源码GB2312方式
@@ -397,9 +398,7 @@ namespace WannaFly
         #region 待解决的问题
         //撤销功能的实现
         //同步集成IE
-        //收藏功能：整理，添加，删除等
-        //----bug：无法显示搜索引擎的图片，并且提示脚本错误！------读写流的改写？+地址栏+标签栏的变化+搜索按钮的key
-        //新建页面的异常：在主页时新建空页面的异常-----》时有时无
+      
         //标签页text的显示问题
         //查看网页源码的优化：排版，正确显示！
         //地址栏选中跳转一些相关的事件触发，比如进度条显示
@@ -419,6 +418,71 @@ namespace WannaFly
             
         }
 
-      
+        private void menuSave_Click(object sender, EventArgs e)
+        {
+            getCurrentBrowser().ShowSaveAsDialog();
+        }
+
+     
+
+        //收藏的函数实现
+        private void addFavorites(string url, string filename, string savepath)
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Favorites);
+            if (!System.IO.File.Exists(path + "\\" + filename + savepath + ".url"))
+            {
+                IWshShell_Class shell = new IWshShell_ClassClass();
+                IWshURLShortcut shortcut = null;
+                if (savepath == "Favorites")
+                {
+                    shortcut = shell.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.Favorites) + "\\" + filename + ".url") as IWshURLShortcut;
+                    toolStripStatusLabel1.Text = "...当前页面收藏完成";
+                }
+                else
+                {
+                    shortcut = shell.CreateShortcut(Environment.GetFolderPath(Environment.SpecialFolder.Favorites) + "\\" + savepath + "\\" + filename + ".url") as IWshURLShortcut;
+                }
+                shortcut.TargetPath = url;
+                shortcut.Save();
+            }
+        }
+
+
+        //点击收藏按钮的功能
+        private void btnFavorites_Click(object sender, EventArgs e)
+        {
+            //if (urlAddress.Text.Trim() == "about:blank" || urlAddress.Text.Trim() == " " || !urlAddress.Text.Trim().StartsWith("http://"))
+            if (urlAddress.Text.Trim() == "about:blank" || urlAddress.Text.Trim() == " ")
+            { }
+            else
+            {
+                string favoURL = urlAddress.Text.Trim();
+                string favoTitle = getCurrentBrowser().DocumentTitle;
+
+                try
+                {
+                    addFavorites(favoURL, favoTitle, "Favorites");
+                 
+                }
+                catch(Exception ex)
+                {
+                    toolStripStatusLabel1.Text = "..?.收藏.?..";
+                }
+            }
+        }
+
+
+        //整理收藏夹
+        private void favoriteFile_Click(object sender, EventArgs e)
+        {
+            favoritesForm favorForm = new favoritesForm();
+            favorForm.ShowDialog();
+        }
+
+        private void menuHistory_Click(object sender, EventArgs e)
+        {
+            historyForm history = new historyForm();
+            history.ShowDialog();
+        }
     }
 }
