@@ -10,19 +10,22 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using System.Reflection;
 using System.Runtime.InteropServices;
-
-
+using System.IO;
 
 namespace WannaFly
 {
     public partial class viewHistory : Form
     {
 
+        string path = Environment.GetFolderPath(Environment.SpecialFolder.History);
+
         public viewHistory()
         {
             InitializeComponent();
         }
 
+
+        //浏览记录，先读IE的然后读当前的
         private void viewHistory_Load(object sender, EventArgs e)
         {
             IUrlHistoryStg2 vUrlHistoryStg2 = (IUrlHistoryStg2)new UrlHistory();
@@ -32,9 +35,38 @@ namespace WannaFly
 
             while (vEnumSTATURL.Next(1, out vSTATURL, out vFectched) == 0)
             {
-                richTextBox1.AppendText(string.Format("{0}\r\n{1}\r\n", vSTATURL.pwcsTitle, vSTATURL.pwcsUrl));
+                listBox1.Items.Add(string.Format("{0}\r\n{1}\r\n", vSTATURL.pwcsTitle, vSTATURL.pwcsUrl));
             }
+
+            
+         
+
         }
+
+
+        
+
+        public void readtext2list()
+        {
+            //获取项目根目录UrlTxt.txt的路径
+            //string path = Application.StartupPath.ToString();
+            path = path.Substring(0, path.LastIndexOf("\\"));
+            path = path.Substring(0, path.LastIndexOf("\\"));
+            path += @"\UrlTxt.txt";
+            try
+            {
+                StreamReader sr = new StreamReader(path); //读取记事本中的内容
+                while (sr.ReadLine() != null) //将内容添加listbox
+                {
+                    listBox1.Items.Add(sr.ReadLine().ToString());
+                }
+                sr.Close();
+            }
+            catch
+            { }
+        }
+
+
 
         #region COM接口实现获取IE历史记录  
         //自定义结构 IUrlHistory  
@@ -120,8 +152,17 @@ namespace WannaFly
 
         private void btnDel_Click(object sender, EventArgs e)
         {
-            if (richTextBox1.SelectedText.Length > 0)
-                richTextBox1.SelectedText = " ";
+            
+        }
+
+        private void viewHistory_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

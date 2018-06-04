@@ -23,7 +23,9 @@ namespace WannaFly
     {
         int TITLE_COUNT = 12;
         string urlHomePage = "https://www.baidu.com/";
-        
+        Stack<string> st = new Stack<string>();
+        int flag = 0;
+
         public mainForm()
         {
             InitializeComponent();
@@ -33,6 +35,7 @@ namespace WannaFly
         private void mainForm_Load(object sender, EventArgs e)
         { 
            initMainForm();
+           ReadText();
         }
 
         #region 初始化当前的浏览器窗体
@@ -92,6 +95,7 @@ namespace WannaFly
                 //statusStrip1.Text = "正在打开网页" + urlAddress.Text + "...";
                 newCurrentPageUrl(urlAddress.Text);
                 addItem_urlAddress();
+                
             }
         }
 
@@ -100,12 +104,14 @@ namespace WannaFly
         {
             urlAddress.Text = urlAddress.SelectedItem.ToString();
             getCurrentBrowser().Navigate(urlAddress.Text);
+            
         }
 
         //在当前页先处理地址再跳转
         private void newCurrentPageUrl(String address)
         {
             getCurrentBrowser().Navigate(getUrl(address));
+            
         }
 
         //处理地址栏中的字符串
@@ -127,6 +133,8 @@ namespace WannaFly
             }
             return myurl;
         }
+
+      
         #endregion
 
         //新建页面
@@ -213,6 +221,36 @@ namespace WannaFly
             tabControl1.SelectedTab = mypage;
         }
 
+        private void pageRevoke_Click(object sender, EventArgs e)
+        {
+            int size = st.Count();
+            if(size>0)
+            {
+                returnPage(st.Peek());
+                st.Pop();
+                flag--;
+                size--;
+            }
+           
+        }
+
+        void returnPage(string address)
+        {
+            TabPage mypage = new TabPage();
+            WebBrowser tempBrowser = new WebBrowser();
+            tempBrowser.Navigated += new WebBrowserNavigatedEventHandler(tempBrowser_Navigated);
+            tempBrowser.NewWindow += new CancelEventHandler(tempBrowser_NewWindow);
+            tempBrowser.StatusTextChanged += new EventHandler(tempBrowser_StatusTextChanged);
+            tempBrowser.ProgressChanged += new WebBrowserProgressChangedEventHandler(tempBrowser_ProgressChanged);
+            tempBrowser.Url = getUrl(address);
+            tempBrowser.Dock = DockStyle.Fill;
+            mypage.Controls.Add(tempBrowser);
+            tabControl1.TabPages.Add(mypage);
+        }
+
+      
+
+
         //控制进度条变化
         void tempBrowser_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e)
         {
@@ -275,37 +313,57 @@ namespace WannaFly
         //临时浏览器产生新窗体事件
         void tempBrowser_NewWindow(object sender, CancelEventArgs e)
         {
+
             WebBrowser myBrowser = (WebBrowser)sender;//获取触发该事件的浏览器
             TabPage mypage = (TabPage)myBrowser.Parent;//获取触发该事件的浏览器所在的tabpage
-            string newURL = ((WebBrowser)sender).StatusText;//通过点击的statustext属性获得新的url
-
-            if (ModifierKeys == Keys.Control)
+            if(flag==0)
             {
-                TabPage tabpageTEMP = new TabPage();//生成新的一页
-                WebBrowser tempBrowser = new WebBrowser();//生成新的临时浏览器
-                tempBrowser.Navigate(newURL);//临时浏览器定向到新的url
-                tabpageTEMP.Text = newstring(tempBrowser.DocumentTitle);
+                string newURL = ((WebBrowser)sender).StatusText;//通过点击的statustext属性获得新的url
+                if (ModifierKeys == Keys.Control)
+                {
+                    TabPage tabpageTEMP = new TabPage();//生成新的一页
+                    WebBrowser tempBrowser = new WebBrowser();//生成新的临时浏览器
+                    tempBrowser.Navigate(newURL);//临时浏览器定向到新的url
+
+                    tabpageTEMP.Text = newstring(tempBrowser.DocumentTitle);
+                    tempBrowser.Dock = DockStyle.Fill;
+                    //为临时浏览器关联new window等事件
+                    tempBrowser.NewWindow += new CancelEventHandler(tempBrowser_NewWindow);
+                    tempBrowser.Navigated += new WebBrowserNavigatedEventHandler(tempBrowser_Navigated);
+                    tempBrowser.ProgressChanged += new WebBrowserProgressChangedEventHandler(tempBrowser_ProgressChanged);
+                    tempBrowser.StatusTextChanged += new EventHandler(tempBrowser_StatusTextChanged);
+                    tabpageTEMP.Controls.Add(tempBrowser);//将临时浏览器添加到临时tabpage中
+                    this.tabControl1.TabPages.Add(tabpageTEMP);//将临时tabpage添加到主窗体中
+                                                               //-------------这是他么怎么解决这些问题（自动刷新，跳转显示）的----我就加了下面这个---------------
+                    this.tabControl1.SelectedTab = tabpageTEMP;
+                    e.Cancel = true;//使外部无法捕获此事件
+                }
+                else
+                {
+                    getCurrentBrowser().Navigate(newURL);
+                    mypage.Text = getCurrentBrowser().DocumentTitle;
+                    urlAddress.Text = newURL;
+                    e.Cancel = true;
+                }
+            }
+            if(flag>0)
+            {                                   
+                TabPage TabPageTemp = new TabPage();        
+                WebBrowser tempBrowser = new WebBrowser();
+                tempBrowser.Navigate(urlAddress.Text);
                 tempBrowser.Dock = DockStyle.Fill;
-                //为临时浏览器关联new window等事件
                 tempBrowser.NewWindow += new CancelEventHandler(tempBrowser_NewWindow);
-                tempBrowser.Navigated += new WebBrowserNavigatedEventHandler(tempBrowser_Navigated);
+                tempBrowser.Navigated += new WebBrowserNavigatedEventHandler(tempBrowser_Navigated);            
                 tempBrowser.ProgressChanged += new WebBrowserProgressChangedEventHandler(tempBrowser_ProgressChanged);
                 tempBrowser.StatusTextChanged += new EventHandler(tempBrowser_StatusTextChanged);
-                tabpageTEMP.Controls.Add(tempBrowser);//将临时浏览器添加到临时tabpage中
-                this.tabControl1.TabPages.Add(tabpageTEMP);//将临时tabpage添加到主窗体中
-                //-------------这是他么怎么解决这些问题（自动刷新，跳转显示）的----我就加了下面这个---------------
-                this.tabControl1.SelectedTab = tabpageTEMP;
-                e.Cancel = true;//使外部无法捕获此事件
-            }
-            else
-            {
-                getCurrentBrowser().Navigate(newURL);
-              
-                mypage.Text = getCurrentBrowser().DocumentTitle;
-                urlAddress.Text = newURL;
+                //将临时浏览器添加到临时TabPage中
+                TabPageTemp.Controls.Add(tempBrowser);
+                //将临时TabPage添加到主窗体中            
+                this.tabControl1.TabPages.Add(TabPageTemp);
+                //使外部无法捕获此事件            
                 e.Cancel = true;
-            }
-        }
+            }        
+        }   
         #endregion
 
 
@@ -361,14 +419,16 @@ namespace WannaFly
         //关闭指定的tab
         private void tabControl1_DoubleClick(object sender, EventArgs e)
         {
+            st.Push(urlAddress.Text);
             //仅仅剩下一个tab时返回
             if (tabControl1.TabPages.Count <= 1)
             {
                 tabControl1.SelectedTab.Text = "空白页";
                 getCurrentBrowser().Navigate("about:blank");
+                flag++;
             }
             else
-            {
+            {   
                 //先将tabControl1隐藏然后remove掉目标tab（如果不隐藏则出现闪烁，即系统自动调转到tabControl1的第一个tab然后跳会。）最后显示tabControl1。
                 tabControl1.Visible = false;
                 WebBrowser mybor = getCurrentBrowser();
@@ -379,6 +439,7 @@ namespace WannaFly
                 //重新设置当前tab
                 tabControl1.SelectedTab = tabControl1.TabPages[tabControl1.TabPages.Count - 1];
                 tabControl1.Visible = true;
+                flag++;
             }
         }
 
@@ -495,5 +556,45 @@ namespace WannaFly
             viewHistory form = new viewHistory();
             form.ShowDialog();
         }
+
+        //只要是webbrowser访问的自动进入IE历史记录文件的
+        //将浏览过的网址写入记事本中
+        public void WriteText(string s)                                              
+        {
+
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.History);
+           //获取项目根目录UrlTxt.txt的路径
+           //string path = Application.StartupPath.ToString();
+            path = path.Substring(0, path.LastIndexOf("\\"));
+            path = path.Substring(0, path.LastIndexOf("\\"));
+            path += @"\UrlTxt.txt";
+            System.IO.StreamWriter sw = new StreamWriter(path, true); //实例化StreamWriter
+            sw.WriteLine(s);  //将网址写入记事本
+            sw.Close();
+        }
+
+     
+        public void ReadText() // 读取记事本中的文件
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.History);
+            //获取项目根目录UrlTxt.txt的路径
+            //string path = Application.StartupPath.ToString();
+            path = path.Substring(0, path.LastIndexOf("\\"));
+            path = path.Substring(0, path.LastIndexOf("\\"));
+            path += @"\UrlTxt.txt";
+            try
+            {
+                StreamReader sr = new StreamReader(path); //读取记事本中的内容
+                while (sr.ReadLine() != null) //将内容添加到地址栏的下拉框中
+                {
+                    urlAddress.Items.Add(sr.ReadLine().ToString());
+                }
+                sr.Close();
+            }
+            catch
+            { }
+        }
+
+        
     }
 }

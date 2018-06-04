@@ -75,11 +75,10 @@
             this.urlAddress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList;
             this.urlAddress.AutoToolTip = true;
             this.urlAddress.Items.AddRange(new object[] {
-            "https://www.baidu.com/",
-            "https://www.google.com/?gl=us&hl=en&pws=0&gws_rd=cr",
             "https://ie.icoa.cn/",
-            "http://www.runoob.com/",
-            "https://www.cnblogs.com/1175429393wljblog/p/5398928.html"});
+            "https://www.cnblogs.com/1175429393wljblog/p/5398928.html",
+            "https://www.baidu.com/",
+            "https://www.google.com/?gl=us&hl=en&pws=0&gws_rd=cr"});
             this.urlAddress.Name = "urlAddress";
             this.urlAddress.Size = new System.Drawing.Size(650, 43);
             this.urlAddress.SelectedIndexChanged += new System.EventHandler(this.urlAddress_SelectedIndexChanged);
@@ -163,6 +162,7 @@
             this.pageRevoke.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.pageRevoke.Size = new System.Drawing.Size(34, 40);
             this.pageRevoke.Text = "撤销";
+            this.pageRevoke.Click += new System.EventHandler(this.pageRevoke_Click);
             // 
             // pageHome
             // 
@@ -239,14 +239,14 @@
             // menuSave
             // 
             this.menuSave.Name = "menuSave";
-            this.menuSave.Size = new System.Drawing.Size(181, 26);
+            this.menuSave.Size = new System.Drawing.Size(125, 26);
             this.menuSave.Text = "保存";
             this.menuSave.Click += new System.EventHandler(this.menuSave_Click);
             // 
             // favoriteFile
             // 
             this.favoriteFile.Name = "favoriteFile";
-            this.favoriteFile.Size = new System.Drawing.Size(181, 26);
+            this.favoriteFile.Size = new System.Drawing.Size(125, 26);
             this.favoriteFile.Text = "收藏夹";
             this.favoriteFile.Click += new System.EventHandler(this.favoriteFile_Click);
             // 
@@ -262,6 +262,7 @@
             // 
             // AddressBar
             // 
+            this.AddressBar.Enabled = false;
             this.AddressBar.Name = "AddressBar";
             this.AddressBar.Size = new System.Drawing.Size(181, 26);
             this.AddressBar.Text = "地址栏";
@@ -270,7 +271,7 @@
             // 浏览记录ToolStripMenuItem
             // 
             this.浏览记录ToolStripMenuItem.Name = "浏览记录ToolStripMenuItem";
-            this.浏览记录ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.浏览记录ToolStripMenuItem.Size = new System.Drawing.Size(140, 26);
             this.浏览记录ToolStripMenuItem.Text = "浏览记录";
             this.浏览记录ToolStripMenuItem.Click += new System.EventHandler(this.浏览记录ToolStripMenuItem_Click);
             // 
@@ -279,7 +280,7 @@
             this.网页源码ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.网页源码ToolStripMenuItem1});
             this.网页源码ToolStripMenuItem.Name = "网页源码ToolStripMenuItem";
-            this.网页源码ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.网页源码ToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
             this.网页源码ToolStripMenuItem.Text = "查看";
             // 
             // 网页源码ToolStripMenuItem1
@@ -308,7 +309,7 @@
             // 关于ToolStripMenuItem
             // 
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
             this.关于ToolStripMenuItem.Text = "关于";
             this.关于ToolStripMenuItem.Click += new System.EventHandler(this.关于ToolStripMenuItem_Click);
             // 
